@@ -16,6 +16,7 @@ import PrivateRoute from "./route/privateRoute";
 import Account from "./pages/Account";
 import CartComp from "./components/Account/cartComp";
 import ChatUser from "./components/Account/chatUser";
+import CategoryPage from "./pages/CategoryPage";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/auth" element={<Authhentication />}></Route>
+        <Route path="/categories" element={<CategoryPage />}></Route>
         <Route
           path="/account"
           element={

@@ -21,10 +21,10 @@ const FeaturedProducts = () => {
         Featured Poducts
       </h1>
       <div className="flex md:hidden mt-5 gap-4 justify-end">
-        <button className="prev-button text-2xl text-[#1f1e1f] bg-gray-100  rounded-full  p-2 ">
+        <button className="prev text-2xl text-[#1f1e1f] bg-gray-100  rounded-full  p-2 ">
           <AiOutlineArrowLeft />
         </button>
-        <button className="next-button text-2xl text-[#1f1e1f]  bg-gray-100 rounded-full p-2 ">
+        <button className="next text-2xl text-[#1f1e1f]  bg-gray-100 rounded-full p-2 ">
           <AiOutlineArrowRight />
         </button>
       </div>
@@ -62,8 +62,8 @@ const FeaturedProducts = () => {
             clickable: true,
           }}
           navigation={{
-            prevEl: ".prev-button",
-            nextEl: ".next-button",
+            prevEl: ".prev",
+            nextEl: ".next",
           }}
           modules={[Pagination, Navigation]}
         >

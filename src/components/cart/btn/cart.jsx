@@ -49,7 +49,7 @@ const ProductCard = ({ product }) => {
           )}
         </button>
       </div>
-      <div className="p-4 text-[#1f1e1f] bg-white max-w-xs md:max-w-md">
+      <div className="p-4 text-[#1f1e1f] bg-white w-full  md:max-w-md">
         <h3 className="text-lg font-semibold">{product.productName}</h3>
         <p className="text-gray-600">${product.price}</p>
         <div className="flex flex-col md:flex-row md:justify-between w-full gap-0 md:items-center mt-4">

@@ -13,7 +13,7 @@ const Nav = styled.nav`
   min-height: 70px;
   background: #1f1e1f;
   display: flex;
-  z-index: 1111;
+  z-index: 99999;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid gray;
@@ -115,7 +115,7 @@ const OverlayMenu = styled.ul`
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-
+  z-index: 99999;
   li {
     opacity: ${(props) => (props.open ? 1 : 0)};
     font-size: 25px;
