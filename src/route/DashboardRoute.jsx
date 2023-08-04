@@ -6,13 +6,13 @@ const SellerDashboardPrivateRoute = ({ children }) => {
   const location = useLocation();
 
   if (!data) {
-    return <Navigate to={"/login"} state={{ from: location }} replace />;
+    return <Navigate to={"/auth"} state={{ from: location }} replace />;
   }
   if (!data.isSeller) {
-    return <Navigate to={"/login"} state={{ from: location }} replace />;
+    return <Navigate to={"/auth"} state={{ from: location }} replace />;
   }
   if (data.isAdmin) {
-    return <Navigate to={"/login"} state={{ from: location }} replace />;
+    return <Navigate to={"/auth"} state={{ from: location }} replace />;
   }
 
   return children;
