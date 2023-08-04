@@ -20,7 +20,7 @@ const ChatUser = () => {
   };
 
   return (
-    <div className="flex flex-col w-full md:h-[90vh] text-[#1f1e1f] bg-gray-200">
+    <div className="flex flex-col min-h-[90vh] w-full md:h-[90vh] text-[#1f1e1f] bg-gray-200">
       <div className="flex-1 flex flex-col md:flex-row-reverse md:overflow-hidden">
         <div className="w-full md:w-1/4 md:max-h-full bg-white border-b md:border-b-0 md:border-r border-gray-300 md:overflow-y-auto">
           <div className="p-4">
@@ -110,7 +110,7 @@ const ChatUser = () => {
               }}
             />
             <button
-              className="bg-slate-400 text-white p-2 rounded-r"
+              className="bg-[#1f1e1f] text-white p-2 rounded-r"
               onClick={() => {
                 const messageInput =
                   document.querySelector('input[type="text"]');

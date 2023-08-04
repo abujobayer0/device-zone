@@ -26,9 +26,13 @@ const SidebarSeller = () => {
     };
   }, []);
   return (
-    <>
+    <div className="-z-10">
       <Sidebar collapsed={!toggle}>
-        <Menu rootStyles={{ color: "#1f1e1f" }}>
+        <Menu
+          rootStyles={{
+            color: "#1f1e1f",
+          }}
+        >
           <MenuItem
             icon={<AiFillDashboard />}
             component={<Link to="/dashboard" />}
@@ -63,7 +67,7 @@ const SidebarSeller = () => {
           </MenuItem>
         </Menu>
       </Sidebar>
-    </>
+    </div>
   );
 };
 
