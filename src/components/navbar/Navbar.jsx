@@ -223,9 +223,28 @@ const Navbar = () => {
             </ItemLink>
           </Item>
           <Item>
-            <ItemLink>
-              <NavLink to={"/account"}>Account</NavLink>
-            </ItemLink>
+            {!user ? (
+              <ItemLink>
+                <NavLink to={"/auth"}>Login</NavLink>
+              </ItemLink>
+            ) : (
+              <ItemLink>
+                {data ? (
+                  <>
+                    {data.isAdmin && <NavLink to={"/admin"}>Admin</NavLink>}
+
+                    {data.isSeller && (
+                      <NavLink to={"/dashboard"}>Dashboard</NavLink>
+                    )}
+                    {!data.isAdmin && !data.isSeller && (
+                      <NavLink to={"/account"}>Account</NavLink>
+                    )}
+                  </>
+                ) : (
+                  ""
+                )}
+              </ItemLink>
+            )}
           </Item>
           <Item>
             <ItemLink>
