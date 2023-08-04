@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+color: #f3f3f3;
+  color-scheme: light dark;
+background-color: #fff;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+input{
+  
+  outline: none;
+}
+textarea{
+  outline: none;
+}
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+.swiper-pagination-bullet {
+  background-color: #1f1e1f;
+  opacity: 0.6;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  transition: opacity 0.2s ease;
+}
+
+.swiper-pagination-bullet-active {
+  opacity: 1;
+}
+
+
+.primary-color{
+  color:#1f1e1f
+}
+.primary-bgcolor{
+  background-color:#1f1e1f
+}
+
+.secondary-color{
+  color:#fff
+}
+.secondary-bgcolor{
+  background-color:#1f1e1f
+}
+.active{
+  color: gray;
+}
