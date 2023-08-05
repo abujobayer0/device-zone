@@ -16,6 +16,11 @@ const productReducer = (state = initialState, action) => {
         ...state,
         selectedProductForDetail: action.payload,
       };
+    case "SEARCH_QUERY":
+      return {
+        ...state,
+        searchQuery: action.payload,
+      };
     default:
       return state;
   }

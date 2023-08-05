@@ -1,12 +1,28 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const SellerProductsTable = ({ products, onEdit, onDelete }) => {
+  const [searchQuery, setSearchQuery] = useState(""); // New state to hold the search query
+
+  const handleSearch = (e) => {
+    const query = e.target.value.toLowerCase();
+    setSearchQuery(query);
+    console.log(query);
+  };
+
+  const filteredProducts = products?.filter((item) =>
+    item.productName.toLowerCase().includes(searchQuery)
+  );
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
   return (
     <div className="w-full text-[#1f1e1f] md:h-[90vh]  ">
-      <form className="shadow-sm">
+      <form onSubmit={handleSubmit} className="shadow-sm">
         <input
           type="text"
           name="search"
+          onChange={(e) => handleSearch(e)}
           placeholder="search by name..."
           className="text-black border w-full md:w-1/3 p-4 mb-4"
         />
@@ -21,7 +37,7 @@ const SellerProductsTable = ({ products, onEdit, onDelete }) => {
             </tr>
           </thead>
           <tbody>
-            {products?.map((product) => (
+            {filteredProducts?.map((product) => (
               <tr key={product._id} className="border-t border-gray-200">
                 <td className="px-4 py-2">
                   <img

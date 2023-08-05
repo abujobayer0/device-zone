@@ -7,3 +7,7 @@ export const ProductDetails = (productData) => ({
   type: "SELECT_PRODUCT_DETAIL",
   payload: productData,
 });
+export const SearchQuery = (searchQuery) => ({
+  type: "SEARCH_QUERY",
+  payload: searchQuery,
+});

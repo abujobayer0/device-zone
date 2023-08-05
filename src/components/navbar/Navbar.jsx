@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { styled } from "styled-components";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { getAuth } from "firebase/auth";
 import "./styles.module.css";
 import { useAuthState } from "react-firebase-hooks/auth";
 import app from "../../utils/firebase.init.js";
 import { useUser } from "../../hooks/useUser";
+import { useDispatch, useSelector } from "react-redux";
+import { SearchQuery } from "../../global/redux/productAction";
 const auth = getAuth(app);
 
 const Nav = styled.nav`
@@ -57,6 +59,9 @@ const ItemLink = styled.a`
   cursor: pointer;
   :hover {
     text-decoration: underline;
+  }
+  @media (max-width: 768px) {
+    display: none;
   }
 `;
 const SearchWrapper = styled.div`
@@ -150,6 +155,22 @@ const Navbar = () => {
   const { data } = useUser();
   const [toggle, toggleNav] = useState(false);
   console.log(data);
+  const Dispatch = useDispatch();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state?.from?.pathname || "/";
+  const handleSearch = (e) => {
+    console.log(e.target.value);
+    const query = e.target.value;
+    if (query === "") {
+      console.log("no data for search");
+      navigate(from);
+    } else {
+      Dispatch(SearchQuery(query));
+      navigate("/all/products/search");
+    }
+  };
+
   return (
     <>
       <Nav>
@@ -219,7 +240,7 @@ const Navbar = () => {
           </Item>
           <Item>
             <SearchWrapper>
-              <SearchField placeholder="Search..." />
+              <SearchField onChange={handleSearch} placeholder="Search..." />
             </SearchWrapper>
           </Item>
         </Menu>
@@ -291,13 +312,16 @@ const Navbar = () => {
               )}
             </Item>
           </Item>
-          <Item>
-            <SearchWrapper>
-              <SearchField placeholder="Search..." />
-            </SearchWrapper>
-          </Item>
         </OverlayMenu>
       </Overlay>
+      <div className="w-full">
+        <input
+          type="text"
+          className="w-full bg-[#1f1e1f] border-b border-gray-500  shadow-lg p-4 text-white md:hidden"
+          onChange={handleSearch}
+          placeholder="Search..."
+        />
+      </div>
     </>
   );
 };

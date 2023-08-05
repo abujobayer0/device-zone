@@ -70,6 +70,19 @@ const ProductDetails = () => {
   const toggleAccordion = () => {
     setIsOpen(!isOpen);
   };
+  const [reviews, setReviews] = useState([]);
+  const [newReview, setNewReview] = useState({ name: "", comment: "" });
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setNewReview((prevReview) => ({ ...prevReview, [name]: value }));
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setReviews((prevReviews) => [...prevReviews, newReview]);
+    setNewReview({ name: "", comment: "" });
+  };
   return (
     <>
       <Navbar></Navbar>
@@ -109,37 +122,50 @@ const ProductDetails = () => {
                 <AiOutlineArrowRight />
               </button>
             </div>
-            <div className="mb-4 mt-28 text-black">
-              <h2 className="text-lg font-semibold mb-2">Description:</h2>
-              <div
-                className="text-gray-600 hidden md:block mt-4"
-                dangerouslySetInnerHTML={{
-                  __html: Product.description,
-                }}
-              ></div>
-              <div className="block md:hidden w-full">
-                <AccordionWrapper>
-                  <AccordionItem onClick={toggleAccordion}>
-                    see Description
-                  </AccordionItem>
-                  <AnimatePresence>
-                    {isOpen && (
-                      <AccordionContent
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                      >
-                        <div
-                          className="text-gray-600 mt-4"
-                          dangerouslySetInnerHTML={{
-                            __html: Product.description,
-                          }}
-                        ></div>
-                      </AccordionContent>
-                    )}
-                  </AnimatePresence>
-                </AccordionWrapper>
-              </div>
+
+            <div className="bg-white rounded-md mt-28 text-black p-4 border">
+              <h2 className="text-xl font-semibold mb-4">Customer Reviews</h2>
+              <hr className="my-2" />
+
+              {/* List of Reviews */}
+              {reviews.length > 0 ? (
+                <div>
+                  {reviews.map((review, index) => (
+                    <div key={index} className="mb-4">
+                      <h3 className="font-semibold mb-1">{review.name}</h3>
+                      <p>{review.comment}</p>
+                      <hr className="my-2" />
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="mb-4">No reviews yet.</p>
+              )}
+
+              <form onSubmit={handleSubmit}>
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Your Name"
+                  value={newReview.name}
+                  onChange={handleInputChange}
+                  className="w-full p-2 border border-gray-400 rounded mb-4"
+                />
+                <textarea
+                  name="comment"
+                  placeholder="Your Review"
+                  rows={4}
+                  value={newReview.comment}
+                  onChange={handleInputChange}
+                  className="w-full p-2 border border-gray-400 rounded mb-4"
+                />
+                <button
+                  type="submit"
+                  className="bg-[#1f1e1f] text-white py-2 px-4 rounded"
+                >
+                  Submit Review
+                </button>
+              </form>
             </div>
           </div>
 
@@ -185,7 +211,38 @@ const ProductDetails = () => {
                 Click here to message the seller
               </p>
             </div>
-
+            <div className="mb-4  text-black">
+              <h2 className="text-lg font-semibold mb-2">Description:</h2>
+              <div
+                className="text-gray-600 hidden md:block mt-4"
+                dangerouslySetInnerHTML={{
+                  __html: Product.description,
+                }}
+              ></div>
+              <div className="block md:hidden w-full">
+                <AccordionWrapper>
+                  <AccordionItem onClick={toggleAccordion}>
+                    see Description
+                  </AccordionItem>
+                  <AnimatePresence>
+                    {isOpen && (
+                      <AccordionContent
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                      >
+                        <div
+                          className="text-gray-600 mt-4"
+                          dangerouslySetInnerHTML={{
+                            __html: Product.description,
+                          }}
+                        ></div>
+                      </AccordionContent>
+                    )}
+                  </AnimatePresence>
+                </AccordionWrapper>
+              </div>
+            </div>
             <button className="w-full flex items-center justify-center bg-[#1f1e1f] text-white p-3 rounded">
               Buy Now
               <IoIosArrowDroprightCircle className="text-xl ml-2" />

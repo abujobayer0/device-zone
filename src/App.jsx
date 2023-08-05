@@ -17,6 +17,8 @@ import Account from "./pages/Account";
 import CartComp from "./components/Account/cartComp";
 import ChatUser from "./components/Account/chatUser";
 import CategoryPage from "./pages/CategoryPage";
+import SearchPage from "./pages/searchPage";
+
 import AllProductPage from "./pages/AllProductPage";
 
 function App() {
@@ -74,7 +76,15 @@ function App() {
             </SellerDashboardPrivateRoute>
           }
         ></Route>
-        <Route path="/all/products" element={<AllProductPage />}></Route>
+        <Route path="/all/products" element={<AllProductPage />}></Route>{" "}
+        <Route
+          path="/all/products/search"
+          element={
+            <PrivateRoute>
+              <SearchPage />
+            </PrivateRoute>
+          }
+        ></Route>
         <Route
           path="/dashboard/product/add"
           element={
@@ -125,7 +135,6 @@ function App() {
             </SellerDashboardPrivateRoute>
           }
         ></Route>
-
         <Route path="*" element={<Home />}></Route>
       </Routes>
     </>

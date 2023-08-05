@@ -14,7 +14,24 @@ const ProductUpdatePage = () => {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     const discountedPrice = (price * (100 - discountPercent)) / 100;
-
+    try {
+      fetch(`https://device-zone.onrender.com/product/update/${Product._id}`, {
+        method: "PUT",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify({
+          productName,
+          description,
+          price,
+          discountPercent,
+          discountedPrice,
+          colorVariation,
+        }),
+      });
+    } catch (err) {
+      console.log(err);
+    } finally {
+      console.log("product successfully updated!!");
+    }
     console.log({
       productName,
       description,
