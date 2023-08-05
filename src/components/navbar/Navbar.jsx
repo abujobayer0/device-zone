@@ -13,7 +13,7 @@ const Nav = styled.nav`
   min-height: 70px;
   background: #1f1e1f;
   display: flex;
-  z-index: 99999;
+  z-index: 999999;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid gray;
@@ -22,6 +22,7 @@ const Nav = styled.nav`
 const Logo = styled.h1`
   font-size: 25px;
   color: white;
+  z-index: 9;
   font-weight: 800;
 `;
 
@@ -51,6 +52,7 @@ const ItemLink = styled.a`
   color: white !important;
   text-decoration: none;
   font-weight: 600;
+  z-index: 9;
   color: #f3f3f3;
   cursor: pointer;
   :hover {
@@ -60,6 +62,7 @@ const ItemLink = styled.a`
 const SearchWrapper = styled.div`
   display: flex;
   align-item: center;
+  z-index: 9;
   justify-content: center;
 `;
 const SearchField = styled.input`
@@ -69,12 +72,15 @@ const SearchField = styled.input`
   border-radius: 5px;
   background-color: #f3f3f3;
   outline: none;
+  z-index: 9;
+  color: #000;
   border: none;
 `;
 
 const NavIcon = styled.button`
   background: none;
   cursor: pointer;
+  z-index: 9;
   border: none;
   outline: none;
 
@@ -86,6 +92,7 @@ const NavIcon = styled.button`
 const Line = styled.span`
   display: block;
   border-radius: 50px;
+  z-index: 9;
   width: 25px;
   height: 3px;
   margin: 5px;
@@ -103,6 +110,7 @@ const Overlay = styled.div`
   width: 100vw;
   background: #1f1e1f;
   transition: height 0.4s ease-in-out;
+  z-index: 9;
 
   @media (min-width: 769px) {
     display: none;
@@ -115,7 +123,7 @@ const OverlayMenu = styled.ul`
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  z-index: 99999;
+  z-index: 9;
   li {
     opacity: ${(props) => (props.open ? 1 : 0)};
     font-size: 25px;
@@ -263,9 +271,25 @@ const Navbar = () => {
             )}
           </Item>
           <Item>
-            <ItemLink>
-              <NavLink to={"/cart"}>Cart(0)</NavLink>
-            </ItemLink>
+            <Item>
+              {!user ? (
+                <ItemLink>
+                  <NavLink to={"/account"}>Cart(0)</NavLink>
+                </ItemLink>
+              ) : (
+                <ItemLink>
+                  {data ? (
+                    <>
+                      {!data.isAdmin && !data.isSeller && (
+                        <NavLink to={"/account"}>Cart(0)</NavLink>
+                      )}
+                    </>
+                  ) : (
+                    ""
+                  )}
+                </ItemLink>
+              )}
+            </Item>
           </Item>
           <Item>
             <SearchWrapper>

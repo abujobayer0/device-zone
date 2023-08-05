@@ -14,10 +14,10 @@ const SettingsSeller = () => {
     <div className="w-full bg-gray-100">
       <button
         onClick={handleSignout}
-        className="border mt-10 mx-auto px-10 py-2 rounded hover:text-[#fff]  bg-white text-[#1f1e1f] hover:bg-[#1f1e1f] flex items-center gap-2 duration-125 transition-all ease"
+        className="border md:my-10 my-96 mx-auto px-10 py-2 rounded hover:text-[#fff]  bg-white text-[#1f1e1f] hover:bg-[#1f1e1f] flex items-center gap-2 duration-125 transition-all ease"
       >
         <AiOutlineLogout />
-        Sign Out
+        Logout
       </button>
     </div>
   );

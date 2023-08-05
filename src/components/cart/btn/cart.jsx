@@ -20,10 +20,7 @@ const ProductCard = ({ product }) => {
   }, [product]);
 
   const toggleWishlist = () => {
-    // Toggle the wishlist status
     setIsWishlist(!isWishlist);
-
-    // Get the existing wishlist from local storage
     const savedWishlist = localStorage.getItem("wishlist");
     const wishlist = savedWishlist ? JSON.parse(savedWishlist) : [];
 
@@ -70,13 +67,12 @@ const ProductCard = ({ product }) => {
       </div>
       <div className="absolute top-2 right-2">
         <button
-          disabled={user?.isAdmin || user?.isSeller}
           title={
             user?.isAdmin || (user?.isSeller && "not allow seller or admin")
           }
           className={`p-2 rounded-full bg-white shadow-lg transition ${
             isWishlist ? "text-red-500" : "text-gray-500 hover:text-red-500"
-          }`}
+          } ${user?.isAdmin || (user?.isSeller && "hidden")}`}
           onClick={() => toggleWishlist(product)}
         >
           {isWishlist ? (
