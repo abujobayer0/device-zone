@@ -37,13 +37,14 @@ const HamburgerMenu = ({ open, setOpen, user, data }) => {
 };
 
 const StyledMenu = styled.nav`
-  display: flex;
+  display: none;
   flex-direction: column;
   justify-content: start;
   background: #1f1e1f;
   z-index: 999999;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transform: ${({ open }) => (open ? "translateY(14%)" : "translateY(-100%)")};
+  transform: ${({ open }) =>
+    open ? "translateY(126px)" : "translateY(-100%)"};
   height: 100vh;
   text-align: left;
   padding: 2rem;
@@ -55,6 +56,7 @@ const StyledMenu = styled.nav`
 
   @media (max-width: 576px) {
     width: 100%;
+    display: flex;
   }
 
   span {

@@ -20,6 +20,7 @@ import CategoryPage from "./pages/CategoryPage";
 import SearchPage from "./pages/searchPage";
 
 import AllProductPage from "./pages/AllProductPage";
+import CategoryProductsPage from "./pages/categoryProductPage";
 
 function App() {
   return (
@@ -77,6 +78,10 @@ function App() {
           }
         ></Route>
         <Route path="/all/products" element={<AllProductPage />}></Route>{" "}
+        <Route
+          path="/categories/products/:query"
+          element={<CategoryProductsPage />}
+        ></Route>{" "}
         <Route
           path="/all/products/search"
           element={
