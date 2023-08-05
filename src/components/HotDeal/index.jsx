@@ -12,7 +12,7 @@ import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 import { useGetData } from "../../hooks/useFetch";
 
 const HotDeals = () => {
-  const { data, loading } = useGetData("/products/featured");
+  const { data, loading } = useGetData("/products/hotdeal");
   const products = !loading && data;
 
   return (

@@ -62,6 +62,7 @@ const ProductAddPage = () => {
       discountedPrice,
       categories,
       user: data,
+      type,
     });
     axios
       .post("https://device-zone.onrender.com/create/product", {
@@ -74,6 +75,7 @@ const ProductAddPage = () => {
         discountedPrice,
         categories,
         seller: data,
+        type,
       })
       .then((response) => {
         console.log("Server response:", response.data);
@@ -215,6 +217,7 @@ const ProductAddPage = () => {
           <label className="block mb-2 font-bold">Product Type:</label>
           <select
             value={type}
+            required
             onChange={(e) => setType(e.target.value)}
             className="w-full px-4 py-2 rounded border"
           >
@@ -229,6 +232,7 @@ const ProductAddPage = () => {
           <label className="block mb-2 font-bold">Category:</label>
           <select
             value={categories}
+            required
             onChange={(e) => setCategories(e.target.value)}
             className="w-full px-4 py-2 rounded border"
           >

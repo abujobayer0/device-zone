@@ -13,25 +13,41 @@ import {
 } from "react-icons/ai";
 import { IoIosArrowDroprightCircle } from "react-icons/io";
 import { useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useGetData } from "../../hooks/useFetch";
 import RecommendedProductCard from "../recomendedProductSection";
 const ProductDetails = () => {
   const Product = useSelector(
     (state) => state.product.selectedProductForDetail
   );
-  const { data: products } = useGetData("/products/featured");
+  const { data: recomendedProducts } = useGetData(
+    `/products/recomended?type=${Product?.type}`
+  );
+  const filterdRecomendedProducts = recomendedProducts?.filter(
+    (item) => item._id !== Product._id
+  );
   const handleBeforeUnload = (e) => {
     e.preventDefault();
-    e.returnValue = ""; // Chrome requires this to show the alert message
+    e.returnValue = "";
   };
 
+  const [recData, setRecData] = useState(false);
   useEffect(() => {
     window.addEventListener("beforeunload", handleBeforeUnload);
     return () => {
       window.removeEventListener("beforeunload", handleBeforeUnload);
     };
   }, []);
+  useEffect(() => {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+  }, [recData]);
+  const handleTopPage = () => {
+    setRecData((prev) => !prev);
+  };
   return (
     <>
       <Navbar></Navbar>
@@ -77,7 +93,6 @@ const ProductDetails = () => {
             <h1 className="text-3xl font-bold mb-2">{Product.productName}</h1>
             <div className="text-xl font-semibold mb-4">${Product.price}</div>
 
-            {/* Color options */}
             <div className="mb-4">
               <h2 className="text-lg font-semibold mb-2">Colors:</h2>
               <div className="flex">
@@ -136,8 +151,12 @@ const ProductDetails = () => {
               Recommended Products
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-              {products.slice(0, 3)?.map((product) => (
-                <RecommendedProductCard key={product.id} product={product} />
+              {filterdRecomendedProducts?.slice(0, 3)?.map((product) => (
+                <RecommendedProductCard
+                  key={product.id}
+                  handleTopPage={handleTopPage}
+                  product={product}
+                />
               ))}
             </div>
           </div>

@@ -17,6 +17,7 @@ import Account from "./pages/Account";
 import CartComp from "./components/Account/cartComp";
 import ChatUser from "./components/Account/chatUser";
 import CategoryPage from "./pages/CategoryPage";
+import AllProductPage from "./pages/AllProductPage";
 
 function App() {
   return (
@@ -73,6 +74,7 @@ function App() {
             </SellerDashboardPrivateRoute>
           }
         ></Route>
+        <Route path="/all/products" element={<AllProductPage />}></Route>
         <Route
           path="/dashboard/product/add"
           element={

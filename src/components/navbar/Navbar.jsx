@@ -189,9 +189,25 @@ const Navbar = () => {
             )}
           </Item>
           <Item>
-            <ItemLink>
-              <NavLink to={"/cart"}>Cart(0)</NavLink>
-            </ItemLink>
+            <Item>
+              {!user ? (
+                <ItemLink>
+                  <NavLink to={"/account"}>Cart(0)</NavLink>
+                </ItemLink>
+              ) : (
+                <ItemLink>
+                  {data ? (
+                    <>
+                      {!data.isAdmin && !data.isSeller && (
+                        <NavLink to={"/account"}>Cart(0)</NavLink>
+                      )}
+                    </>
+                  ) : (
+                    ""
+                  )}
+                </ItemLink>
+              )}
+            </Item>
           </Item>
           <Item>
             <SearchWrapper>

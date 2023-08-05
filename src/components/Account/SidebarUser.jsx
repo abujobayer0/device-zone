@@ -28,7 +28,7 @@ const SidebarUser = () => {
     };
   }, []);
   return (
-    <div className="-z-10">
+    <div className="">
       <Sidebar collapsed={!toggle}>
         <Menu rootStyles={{ color: "#1f1e1f" }}>
           <MenuItem

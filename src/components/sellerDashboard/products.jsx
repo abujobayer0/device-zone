@@ -5,9 +5,11 @@ import { useDispatch } from "react-redux";
 import { selectProductToEdit } from "../../global/redux/productAction";
 const Products = () => {
   const { data: user } = useUser();
-  const { data: products, loading } = useGetData(
-    `seller/products?email=${user.email}`
-  );
+  const {
+    data: products,
+    loading,
+    refetch,
+  } = useGetData(`seller/products?email=${user.email}`);
   const dispatch = useDispatch();
   const handleEdit = (product) => {
     dispatch(selectProductToEdit(product));
@@ -15,6 +17,14 @@ const Products = () => {
   };
   console.log(!loading && products);
   const handleDelete = (product) => {
+    fetch(`https://device-zone.onrender.com/delete/product/${product}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        refetch();
+        console.log(data);
+      });
     console.log("Delete product:", product);
   };
 

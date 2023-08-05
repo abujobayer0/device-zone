@@ -26,7 +26,7 @@ const SidebarSeller = () => {
     };
   }, []);
   return (
-    <div className="-z-10">
+    <div className="">
       <Sidebar collapsed={!toggle}>
         <Menu
           rootStyles={{
