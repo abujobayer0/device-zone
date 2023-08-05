@@ -8,6 +8,7 @@ import app from "../../utils/firebase.init.js";
 import { useUser } from "../../hooks/useUser";
 import { useDispatch, useSelector } from "react-redux";
 import { SearchQuery } from "../../global/redux/productAction";
+import HamburgerMenu from "./hamburgerMenu";
 const auth = getAuth(app);
 
 const Nav = styled.nav`
@@ -54,7 +55,7 @@ const ItemLink = styled.a`
   color: white !important;
   text-decoration: none;
   font-weight: 600;
-  z-index: 9;
+  z-index: -1;
   color: #f3f3f3;
   cursor: pointer;
   :hover {
@@ -153,7 +154,7 @@ const OverlayMenu = styled.ul`
 const Navbar = () => {
   const [user] = useAuthState(auth);
   const { data } = useUser();
-  const [toggle, toggleNav] = useState(false);
+  const [toggle, setToggleNav] = useState(false);
   console.log(data);
   const Dispatch = useDispatch();
   const location = useLocation();
@@ -244,76 +245,18 @@ const Navbar = () => {
             </SearchWrapper>
           </Item>
         </Menu>
-        <NavIcon onClick={() => toggleNav(!toggle)}>
+        <NavIcon onClick={() => setToggleNav(!toggle)}>
           <Line open={toggle} />
           <Line open={toggle} />
           <Line open={toggle} />
         </NavIcon>
       </Nav>
-      <Overlay open={toggle}>
-        <OverlayMenu open={toggle}>
-          <Item>
-            <ItemLink>
-              <NavLink to="/">Home</NavLink>
-            </ItemLink>
-          </Item>
-          <Item>
-            <ItemLink>
-              <NavLink to={"/all/products"}>All Products</NavLink>
-            </ItemLink>
-          </Item>
-          <Item>
-            <ItemLink>
-              <NavLink to={"/categories"}>Categories</NavLink>
-            </ItemLink>
-          </Item>
-          <Item>
-            {!user ? (
-              <ItemLink>
-                <NavLink to={"/auth"}>Login</NavLink>
-              </ItemLink>
-            ) : (
-              <ItemLink>
-                {data ? (
-                  <>
-                    {data.isAdmin && <NavLink to={"/admin"}>Admin</NavLink>}
-
-                    {data.isSeller && (
-                      <NavLink to={"/dashboard"}>Dashboard</NavLink>
-                    )}
-                    {!data.isAdmin && !data.isSeller && (
-                      <NavLink to={"/account"}>Account</NavLink>
-                    )}
-                  </>
-                ) : (
-                  ""
-                )}
-              </ItemLink>
-            )}
-          </Item>
-          <Item>
-            <Item>
-              {!user ? (
-                <ItemLink>
-                  <NavLink to={"/account"}>Cart(0)</NavLink>
-                </ItemLink>
-              ) : (
-                <ItemLink>
-                  {data ? (
-                    <>
-                      {!data.isAdmin && !data.isSeller && (
-                        <NavLink to={"/account"}>Cart(0)</NavLink>
-                      )}
-                    </>
-                  ) : (
-                    ""
-                  )}
-                </ItemLink>
-              )}
-            </Item>
-          </Item>
-        </OverlayMenu>
-      </Overlay>
+      <HamburgerMenu
+        user={user}
+        data={data}
+        open={toggle}
+        setOpen={setToggleNav}
+      />
       <div className="w-full">
         <input
           type="text"

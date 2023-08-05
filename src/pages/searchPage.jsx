@@ -5,6 +5,17 @@ import { useGetData } from "../hooks/useFetch.js";
 import { useEffect, useState } from "react";
 import ProductCard from "../components/cart/btn/cart.jsx";
 const SearchPage = () => {
+  const handleBeforeUnload = (e) => {
+    e.preventDefault();
+    e.returnValue = "";
+  };
+
+  useEffect(() => {
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
   const query = useSelector((state) => state.product.searchQuery);
   console.log(query);
 
