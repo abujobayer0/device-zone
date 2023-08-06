@@ -21,10 +21,13 @@ import SearchPage from "./pages/searchPage";
 
 import AllProductPage from "./pages/AllProductPage";
 import CategoryProductsPage from "./pages/categoryProductPage";
+import WishlistComp from "./components/Account/wishList";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
     <>
+      <Toaster position="top-center" reverseOrder={false} />
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/auth" element={<Authhentication />}></Route>
@@ -35,6 +38,16 @@ function App() {
             <PrivateRoute>
               <Account>
                 <CartComp />
+              </Account>
+            </PrivateRoute>
+          }
+        ></Route>
+        <Route
+          path="/account/wishlist"
+          element={
+            <PrivateRoute>
+              <Account>
+                <WishlistComp />
               </Account>
             </PrivateRoute>
           }

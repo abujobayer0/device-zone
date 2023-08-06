@@ -18,14 +18,14 @@ const FeaturedProducts = () => {
 
   return (
     <div className="mt-10 px-5 w-full">
-      <h1 className="text-5xl w-full flex  justify-start sm:text-6xl font-semibold text-[#1f1e1f] ">
-        Featured Poducts
-        <span className="text-gray-900 mt-4 hover:text-gray-500 cursor-pointer text-sm md:text-lg underline text-start">
-          <Link to={"/all/products"}>
+      <Link to={"/all/products"}>
+        <h1 className="text-5xl w-full flex  justify-start sm:text-6xl font-semibold text-[#1f1e1f] ">
+          Featured Poducts
+          <span className="text-gray-900 mt-4 hover:text-gray-500 cursor-pointer text-sm md:text-lg underline text-start">
             <AiOutlineArrowRight />
-          </Link>
-        </span>
-      </h1>
+          </span>
+        </h1>
+      </Link>
       <div className="flex md:hidden mt-5 gap-4 justify-end">
         <button className="prev text-2xl text-[#1f1e1f] bg-gray-100  rounded-full  p-2 ">
           <AiOutlineArrowLeft />

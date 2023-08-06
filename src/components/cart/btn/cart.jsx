@@ -2,16 +2,19 @@ import { useEffect, useState } from "react";
 import { AiFillHeart, AiOutlineShoppingCart } from "react-icons/ai";
 import { AiOutlineHeart } from "react-icons/ai";
 import { useDispatch } from "react-redux";
-import { ProductDetails } from "../../../global/redux/productAction";
+import {
+  CartAddedSignal,
+  ProductDetails,
+} from "../../../global/redux/productAction";
 import { Link } from "react-router-dom";
 import { useUser } from "../../../hooks/useUser";
+import { toast } from "react-hot-toast";
 const ProductCard = ({ product }) => {
   const Dispatch = useDispatch();
   const [isWishlist, setIsWishlist] = useState(false);
   const [isImgHover, setIsImgHover] = useState(false);
   const { data: user } = useUser();
   useEffect(() => {
-    // Check if the product is in the wishlist (in local storage)
     const savedWishlist = localStorage.getItem("wishlist");
     if (savedWishlist) {
       const wishlist = JSON.parse(savedWishlist);
@@ -24,7 +27,6 @@ const ProductCard = ({ product }) => {
     const savedWishlist = localStorage.getItem("wishlist");
     const wishlist = savedWishlist ? JSON.parse(savedWishlist) : [];
 
-    // If the product is in the wishlist, remove it. Otherwise, add it.
     if (isWishlist) {
       const updatedWishlist = wishlist.filter((id) => id !== product._id);
       localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
@@ -35,7 +37,44 @@ const ProductCard = ({ product }) => {
       console.log("Product added to wishlist:", product);
     }
   };
-  const addToCart = () => {};
+  const addToCart = async (product) => {
+    if (!product || !user) {
+      console.log("Product or user is undefined.");
+      return;
+    }
+
+    console.log(product, user);
+    try {
+      await fetch("http://localhost:7000/add/cart", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({ email: user.email, productId: product._id }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          Dispatch(CartAddedSignal(1));
+          console.log(data);
+          if (data.message === "Product Already Added To Cart") {
+            toast.error("Product Already in cart! ");
+          } else {
+            toast("Product added to cart!", {
+              icon: "👏",
+              style: {
+                borderRadius: "10px",
+                background: "#333",
+                color: "#fff",
+              },
+            });
+          }
+        });
+    } catch (err) {
+    } finally {
+      console.log("");
+    }
+  };
+
   const handleViewDetails = (product) => {
     console.log("Added to redux:", product);
     Dispatch(ProductDetails(product));
@@ -49,6 +88,7 @@ const ProductCard = ({ product }) => {
             alt={product.productName}
             onMouseEnter={() => setIsImgHover(true)}
             onMouseLeave={() => setIsImgHover(false)}
+            loading="lazy"
             className=" w-64 hover:scale-105 transition-transform  transform duration-500 ease-in-out object-cover mx-auto  p-2 h-64"
           />
         ) : (
@@ -61,6 +101,7 @@ const ProductCard = ({ product }) => {
             alt={product.productName}
             onMouseEnter={() => setIsImgHover(true)}
             onMouseLeave={() => setIsImgHover(false)}
+            loading="lazy"
             className=" w-96  object-cover transition-transform  transform duration-500 ease-in-out hover:scale-105  mx-auto  p-2 h-64"
           />
         )}
@@ -92,17 +133,19 @@ const ProductCard = ({ product }) => {
               user?.isAdmin || (user?.isSeller && "not allow seller or admin")
             }
             className="w-full flex items-center gap-2 bg-[#1f1e1f] text-white p-2 rounded mb-2 md:mb-0 md:mr-2"
-            onClick={addToCart}
+            onClick={() => addToCart(product)}
           >
             <AiOutlineShoppingCart />
-            Add to Cart
+            {user?.isAdmin || user?.isSeller ? "Not Allow " : "Add to Cart"}
           </button>
-          <button
-            onClick={() => handleViewDetails(product)}
-            className="w-full  bg-gray-200 text-[#1f1e1f] font-semibold p-2 rounded"
-          >
-            <Link to={`/product/details/${product._id}`}>View Details</Link>
-          </button>
+          <Link to={`/product/details/${product._id}`} className="w-full">
+            <button
+              onClick={() => handleViewDetails(product)}
+              className="w-full  bg-gray-200 text-[#1f1e1f] font-semibold p-2 rounded"
+            >
+              View Details
+            </button>
+          </Link>
         </div>
       </div>
     </div>

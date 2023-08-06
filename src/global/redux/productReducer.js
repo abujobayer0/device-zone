@@ -21,6 +21,11 @@ const productReducer = (state = initialState, action) => {
         ...state,
         searchQuery: action.payload,
       };
+    case "CART_ADDED_SIGNAL":
+      return {
+        ...state,
+        cartAddSignal: action.payload,
+      };
     default:
       return state;
   }

@@ -17,12 +17,15 @@ const configs = [
   },
 ];
 const ProductPage = () => {
-  // Dummy data for category, color, and type options
-  const categories = ["Electronics", "Clothing", "Home & Kitchen"];
+  const [category, setCategory] = useState("");
+  const [color, setColor] = useState("");
+  const [sort, setSort] = useState("");
+  const [type, setType] = useState("");
+  const categories = ["featured", "new arrival", "hot deal"];
   const colors = ["Red", "Blue", "Green", "Black", "White"];
-  const types = ["Shirt", "Dress", "Phone", "Laptop", "Appliance"];
+  const types = ["smart_watch", "Tablet", "Phone", "Laptop"];
   const [minPrice, setMinPrice] = useState(0);
-  const [maxPrice, setMaxPrice] = useState(100);
+  const [maxPrice, setMaxPrice] = useState(2000);
   const { data: products } = useGetData("/products");
   const [isOpen, setOpen] = useState(false);
   const [config, setConfig] = useState(configs[0]);
@@ -57,7 +60,29 @@ const ProductPage = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-
+  const handleFilter = () => {
+    try {
+      fetch(
+        `http://localhost:7000/products/filter?category=${category}&&color=${color}&&sort=${sort}&&minPrice=${minPrice}&&maxPrice=${maxPrice}&&type=${type}`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          console.log("filter btn clicked", {
+            category,
+            color,
+            sort,
+            minPrice,
+            maxPrice,
+            type,
+          });
+          console.log(data);
+        });
+    } catch (err) {
+      console.log(err);
+    } finally {
+      console.log("Success");
+    }
+  };
   return (
     <div className="w-full relative mx-auto text-black p-4">
       <div className="grid md:grid-cols-4 lg:grid-cols-4 gap-4">
@@ -76,6 +101,16 @@ const ProductPage = () => {
           setMinPrice={setMinPrice}
           minPrice={minPrice}
           types={types}
+          setType={setType}
+          type={type}
+          color={color}
+          topPosition={scrollTop}
+          setSort={setSort}
+          sort={sort}
+          setColor={setColor}
+          category={category}
+          setCategory={setCategory}
+          handleFilter={handleFilter}
         />
 
         <div className="col-span-3 w-full grid justify-items-center items-center justify-center grid-cols-2  lg:grid-cols-3 gap-4">
@@ -101,18 +136,26 @@ const ProductPage = () => {
               <div className="flex">
                 <div className="mb-4 w-full">
                   <h2 className="text-lg font-semibold mb-2">Categories</h2>
-                  <select className="w-full p-2 border rounded">
+                  <select
+                    onChange={(e) => setCategory(e.target.value)}
+                    value={category}
+                    className="w-full p-2 border rounded"
+                  >
                     <option value="">Select</option>
                     {categories?.map((category, index) => (
-                      <option key={index} value={categories}>
-                        {categories}
+                      <option key={index} value={category}>
+                        {category}
                       </option>
                     ))}
                   </select>
                 </div>
                 <div className="mb-4 w-full">
                   <h2 className="text-lg font-semibold mb-2">Type</h2>
-                  <select className="w-full p-2 border rounded">
+                  <select
+                    onChange={(e) => setType(e.target.value)}
+                    value={type}
+                    className="w-full p-2 border rounded"
+                  >
                     <option value="">Select</option>
 
                     {types?.map((type, index) => (
@@ -152,7 +195,11 @@ const ProductPage = () => {
               <div className="flex">
                 <div className="mb-4 w-full">
                   <h2 className="text-lg font-semibold mb-2">Sort By</h2>
-                  <select className="w-full p-2 border rounded">
+                  <select
+                    onChange={(e) => setSort(e.target.value)}
+                    value={sort}
+                    className="w-full p-2 border rounded"
+                  >
                     <option value="">Select</option>
                     <option value="price_low_to_high">
                       Price: Low to High
@@ -169,7 +216,11 @@ const ProductPage = () => {
                   <h2 className="text-lg font-semibold mb-2">
                     Color Variation
                   </h2>
-                  <select className="w-full p-2 border rounded">
+                  <select
+                    onChange={(e) => setColor(e.target.value)}
+                    value={color}
+                    className="w-full p-2 border rounded"
+                  >
                     <option value="">Select</option>
 
                     {colors?.map((color, index) => (
@@ -182,7 +233,10 @@ const ProductPage = () => {
               </div>
 
               <div className="mb-4 w-full">
-                <button className="text-white py-2 rounded bg-[#1f1e1f] w-full">
+                <button
+                  onClick={handleFilter}
+                  className="text-white py-2 rounded bg-[#1f1e1f] w-full"
+                >
                   Filter
                 </button>
               </div>

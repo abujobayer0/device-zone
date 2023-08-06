@@ -14,6 +14,7 @@ const RecommendedProductCard = ({ product, handleTopPage }) => {
         src={product.selectedImages[0].image}
         alt={product.productName}
         className="w-full h-48 object-cover rounded-md mb-4"
+        loading="lazy"
       />
       <h3 className="text-lg font-semibold mb-2">{product.productName}</h3>
       <div className="text-xl font-semibold mb-2">${product.price}</div>

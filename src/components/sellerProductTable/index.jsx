@@ -44,6 +44,7 @@ const SellerProductsTable = ({ products, onEdit, onDelete }) => {
                     src={product.selectedImages[0].image}
                     alt={product.productName}
                     className="w-16 h-16 object-cover rounded"
+                    loading="lazy"
                   />
                 </td>
                 <td className="px-4 py-2">{product.productName}</td>

@@ -15,7 +15,7 @@ const ProductUpdatePage = () => {
     e.preventDefault();
     const discountedPrice = (price * (100 - discountPercent)) / 100;
     try {
-      fetch(`https://device-zone.onrender.com/product/update/${Product._id}`, {
+      fetch(`http://localhost:7000/product/update/${Product._id}`, {
         method: "PUT",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify({

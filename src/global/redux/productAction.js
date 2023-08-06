@@ -11,3 +11,7 @@ export const SearchQuery = (searchQuery) => ({
   type: "SEARCH_QUERY",
   payload: searchQuery,
 });
+export const CartAddedSignal = (cartAddSignal) => ({
+  type: "CART_ADDED_SIGNAL",
+  payload: cartAddSignal,
+});

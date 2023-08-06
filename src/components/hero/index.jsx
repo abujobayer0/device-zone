@@ -23,6 +23,7 @@ const Hero = () => {
         <img
           src="https://cdn.uc.assets.prezly.com/9223727f-be83-4b31-9b8a-d50f0e33674e/Spin-5-SP514-51N-01.png"
           alt=""
+          loading="lazy"
         />
       </div>
     </div>

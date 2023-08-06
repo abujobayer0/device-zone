@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import Navbar from "../components/navbar/Navbar";
 import {
@@ -11,6 +11,7 @@ import {
 import app from "../utils/firebase.init.js";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const auth = getAuth(app);
 
@@ -18,6 +19,7 @@ const Authentication = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const from = location.state?.from?.pathname || "/";
+  const [user] = useAuthState(auth);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [address, setAddress] = useState("");
@@ -52,7 +54,7 @@ const Authentication = () => {
           const user = userCredential.user;
           console.log(user);
           try {
-            fetch("https://device-zone.onrender.com/user/create", {
+            fetch("http://localhost:7000/user/create", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
@@ -104,7 +106,7 @@ const Authentication = () => {
           console.log(user);
 
           axios
-            .post("https://device-zone.onrender.com/user/create", {
+            .post("http://localhost:7000/user/create", {
               email: user.email,
               address,
               zipCode,
@@ -142,7 +144,7 @@ const Authentication = () => {
         navigate(from);
 
         axios
-          .post("https://device-zone.onrender.com/user/create", {
+          .post("http://localhost:7000/user/create", {
             email: user.email,
             userName: user.displayName,
             zipCode: null,
@@ -165,7 +167,11 @@ const Authentication = () => {
         setError(errorMessage);
       });
   };
-
+  useEffect(() => {
+    if (user) {
+      navigate(from);
+    }
+  }, []);
   return (
     <>
       <Navbar />

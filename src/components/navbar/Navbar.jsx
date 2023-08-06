@@ -9,6 +9,7 @@ import { useUser } from "../../hooks/useUser";
 import { useDispatch, useSelector } from "react-redux";
 import { SearchQuery } from "../../global/redux/productAction";
 import HamburgerMenu from "./hamburgerMenu";
+import { useGetData } from "../../hooks/useFetch";
 const auth = getAuth(app);
 
 const Nav = styled.nav`
@@ -110,46 +111,7 @@ const Line = styled.span`
   }
 `;
 
-const Overlay = styled.div`
-  position: absolute;
-  height: ${(props) => (props.open ? "91vh" : 0)};
-  width: 100vw;
-  background: #1f1e1f;
-  transition: height 0.4s ease-in-out;
-  z-index: 9;
-
-  @media (min-width: 769px) {
-    display: none;
-  }
-`;
 const Item = styled.li``;
-const OverlayMenu = styled.ul`
-  list-style: none;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 9;
-  li {
-    opacity: ${(props) => (props.open ? 1 : 0)};
-    font-size: 25px;
-    margin: 30px 0px;
-    transition: opacity 0.4s ease-in-out;
-  }
-
-  li:nth-child(2) {
-    margin: 30px 0px;
-  }
-  li:nth-child(3) {
-    margin: 30px 0px;
-  }
-  li:nth-child(4) {
-    margin: 30px 0px;
-  }
-  li:nth-child(5) {
-    margin: 30px 0px;
-  }
-`;
 
 const Navbar = () => {
   const [user] = useAuthState(auth);
@@ -171,6 +133,22 @@ const Navbar = () => {
       navigate("/all/products/search");
     }
   };
+  const [scrollTop, setScrollTop] = useState(0);
+  console.log(scrollTop);
+  const handleScroll = () => {
+    const currentScrollTop =
+      window.pageYOffset || document.documentElement.scrollTop;
+    setScrollTop(currentScrollTop);
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+  const { data: cartItems } = useGetData(`/cart?email=${user?.email} `);
 
   return (
     <>
@@ -222,14 +200,16 @@ const Navbar = () => {
             <Item>
               {!user ? (
                 <ItemLink>
-                  <NavLink to={"/account"}>Cart(0)</NavLink>
+                  <NavLink to={"/account"}>Cart({cartItems?.length})</NavLink>
                 </ItemLink>
               ) : (
                 <ItemLink>
                   {data ? (
                     <>
                       {!data.isAdmin && !data.isSeller && (
-                        <NavLink to={"/account"}>Cart(0)</NavLink>
+                        <NavLink to={"/account"}>
+                          Cart({cartItems?.length})
+                        </NavLink>
                       )}
                     </>
                   ) : (
@@ -255,14 +235,15 @@ const Navbar = () => {
         user={user}
         data={data}
         open={toggle}
+        cartItems={cartItems}
         setOpen={setToggleNav}
       />
       <div className="w-full">
         <input
           type="text"
-          className="w-full bg-[#1f1e1f] border-b border-gray-500  shadow-lg p-4 text-white md:hidden"
+          className="w-full cursor-pointer bg-[#1f1e1f] border-b border-gray-500  shadow-lg p-4 text-white md:hidden"
           onChange={handleSearch}
-          placeholder="Search..."
+          placeholder="Search Products e.g. Phone ,Tablet , Laptop , Smart Watch"
         />
       </div>
     </>

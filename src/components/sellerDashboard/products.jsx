@@ -17,7 +17,7 @@ const Products = () => {
   };
   console.log(!loading && products);
   const handleDelete = (product) => {
-    fetch(`https://device-zone.onrender.com/delete/product/${product}`, {
+    fetch(`http://localhost:7000/delete/product/${product}`, {
       method: "DELETE",
     })
       .then((res) => res.json())

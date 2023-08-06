@@ -9,7 +9,13 @@ const SearchPage = () => {
     e.preventDefault();
     e.returnValue = "";
   };
-
+  useEffect(() => {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+  }, []);
   useEffect(() => {
     window.addEventListener("beforeunload", handleBeforeUnload);
     return () => {
@@ -24,7 +30,7 @@ const SearchPage = () => {
   console.log(products);
   useEffect(() => {
     setIsLoading(true);
-    fetch(`https://device-zone.onrender.com/products/search?query=${query}`)
+    fetch(`http://localhost:7000/products/search?query=${query}`)
       .then((res) => res.json())
       .then((data) => {
         setProducts(data);

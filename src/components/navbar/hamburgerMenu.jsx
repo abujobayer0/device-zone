@@ -19,7 +19,7 @@ const useOnClickOutside = (ref, handler) => {
   }, [ref, handler]);
 };
 
-const HamburgerMenu = ({ open, setOpen, user, data }) => {
+const HamburgerMenu = ({ open, cartItems, setOpen, user, data }) => {
   const node = React.useRef();
 
   useOnClickOutside(node, () => {
@@ -30,7 +30,13 @@ const HamburgerMenu = ({ open, setOpen, user, data }) => {
   return (
     <div>
       <div ref={node} className="">
-        <Menu open={open} user={user} data={data} setOpen={setOpen} />
+        <Menu
+          open={open}
+          cartItems={cartItems}
+          user={user}
+          data={data}
+          setOpen={setOpen}
+        />
       </div>
     </div>
   );
@@ -54,7 +60,7 @@ const StyledMenu = styled.nav`
   border-top: 1px solid #808080;
   transition: transform 0.3s ease-in-out;
 
-  @media (max-width: 576px) {
+  @media (max-width: 768px) {
     width: 100%;
     display: flex;
   }
@@ -72,7 +78,7 @@ const StyledMenu = styled.nav`
   }
 `;
 
-const Menu = ({ open, data, user, setOpen }) => {
+const Menu = ({ open, data, cartItems, user, setOpen }) => {
   return (
     <StyledMenu open={open}>
       <div className="  flex flex-col items-center gap-12">
@@ -131,7 +137,9 @@ const Menu = ({ open, data, user, setOpen }) => {
           <div>
             {!user ? (
               <NavLink to={"/account"}>
-                <span className="text-lg uppercase   w-full">Cart(0)</span>
+                <span className="text-lg uppercase   w-full">
+                  Cart({cartItems?.length})
+                </span>
               </NavLink>
             ) : (
               <>
@@ -140,7 +148,7 @@ const Menu = ({ open, data, user, setOpen }) => {
                     {!data.isAdmin && !data.isSeller && (
                       <NavLink to={"/account"}>
                         <span className="text-lg uppercase   w-full">
-                          Cart(0)
+                          Cart({cartItems?.length})
                         </span>
                       </NavLink>
                     )}

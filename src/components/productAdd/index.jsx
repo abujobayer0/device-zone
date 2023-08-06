@@ -65,7 +65,7 @@ const ProductAddPage = () => {
       type,
     });
     axios
-      .post("https://device-zone.onrender.com/create/product", {
+      .post("http://localhost:7000/create/product", {
         productName,
         description,
         price,
@@ -267,8 +267,9 @@ const ProductAddPage = () => {
             <img
               key={index}
               src={item.image}
-              className="w-full rounded"
+              className="w-full  rounded"
               alt=""
+              loading="lazy"
             />
           ))}
         </div>

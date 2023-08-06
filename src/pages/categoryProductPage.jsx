@@ -10,7 +10,13 @@ const CategoryProductsPage = () => {
     e.preventDefault();
     e.returnValue = "";
   };
-  console.log(query);
+  useEffect(() => {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+  }, []);
   useEffect(() => {
     window.addEventListener("beforeunload", handleBeforeUnload);
     return () => {

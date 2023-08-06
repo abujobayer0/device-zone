@@ -22,6 +22,7 @@ const CategoryPage = () => {
                   className="object-center object-cover h-full w-full"
                   src="https://www.apple.com/newsroom/images/product/iphone/standard/8plus_and_8_glass_back_big.jpg.large.jpg"
                   alt="girl-image"
+                  loading="lazy"
                 />
                 <button
                   onClick={() => handleCategory("phone")}
@@ -38,6 +39,7 @@ const CategoryPage = () => {
                     className="object-center object-cover h-full w-full"
                     src="https://a-static.mlcdn.com.br/450x450/tablet-samsung-galaxy-tab-s6-lite-4g-bluetooth-android-10-0-64gb-8mp-tela-de-10-4-cinza-sm-p615nzavzto/kabum/114929/9fc2d995f476b248939fca6feb98658d.jpeg"
                     alt="shoe-image"
+                    loading="lazy"
                   />
                   <button
                     onClick={() => handleCategory("tablet")}
@@ -52,6 +54,7 @@ const CategoryPage = () => {
                     className="object-center object-cover h-full w-full"
                     src="https://thethaiger.com/wp-content/uploads/2021/06/ezgif.com-gif-maker1-1.jpg"
                     alt="watch-image"
+                    loading="lazy"
                   />
                   <button
                     onClick={() => handleCategory("laptop")}
@@ -68,6 +71,7 @@ const CategoryPage = () => {
                   className="object-center object-cover h-full w-full"
                   src="https://adminapi.applegadgetsbd.com/storage/media/large/Apple-Watch-SE-2020-Gold-GPS-Cellular-5728.jpg"
                   alt="girl-image"
+                  loading="lazy"
                 />
                 <button
                   onClick={() => handleCategory("smart_watch")}
@@ -82,11 +86,13 @@ const CategoryPage = () => {
                   className="object-center object-cover h-full w-full hidden md:block"
                   src="https://adminapi.applegadgetsbd.com/storage/media/large/Apple-Watch-SE-2020-Gold-GPS-Cellular-5728.jpg"
                   alt="girl-image"
+                  loading="lazy"
                 />
                 <img
                   className="object-center object-cover h-full w-full md:hidden"
                   src="https://adminapi.applegadgetsbd.com/storage/media/large/Apple-Watch-SE-2020-Gold-GPS-Cellular-5728.jpg"
                   alt="olive-tatiane-Im-Ez-F9-B91-Mk-unsplash-2"
+                  loading="lazy"
                 />
                 <button
                   onClick={() => handleCategory("smart_watch")}
@@ -101,11 +107,13 @@ const CategoryPage = () => {
                   className="object-center object-cover h-full w-full hidden md:block"
                   src="https://adminapi.applegadgetsbd.com/storage/media/large/Apple-Watch-SE-2020-Gold-GPS-Cellular-5728.jpg"
                   alt="girl-image"
+                  loading="lazy"
                 />
                 <img
                   className="object-center object-cover h-full w-full md:hidden"
                   src="https://adminapi.applegadgetsbd.com/storage/media/large/Apple-Watch-SE-2020-Gold-GPS-Cellular-5728.jpg"
                   alt="olive-tatiane-Im-Ez-F9-B91-Mk-unsplash-2"
+                  loading="lazy"
                 />
                 <button
                   onClick={() => handleCategory("smart_watch")}

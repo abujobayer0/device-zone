@@ -83,7 +83,7 @@ const ChatUser = () => {
                 {msg.sender === "seller" && (
                   <div className="flex items-center mb-2">
                     <img
-                      src="/seller-icon.png" // Replace with seller icon image URL
+                      src="/seller-icon.png"
                       alt="Seller Icon"
                       className="w-6 h-6 mr-2"
                     />
