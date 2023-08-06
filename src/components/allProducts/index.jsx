@@ -72,7 +72,7 @@ const ProductPage = () => {
     };
     try {
       const queryString = new URLSearchParams(filter).toString();
-      const url = `http://localhost:7000/products/filter?${queryString}`;
+      const url = `https://device-zone.onrender.com/products/filter?${queryString}`;
       const response = await fetch(url);
       const data = await response.json();
       console.log(data);

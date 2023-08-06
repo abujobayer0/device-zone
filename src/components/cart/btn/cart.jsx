@@ -55,20 +55,9 @@ const ProductCard = ({ product }) => {
         .then((data) => {
           Dispatch(CartAddedSignal(1));
           console.log(data);
-          if (data.message) {
-            toast.error("Product Already in cart! ");
-          } else {
-            toast("Product added to cart!", {
-              icon: "👏",
-              style: {
-                borderRadius: "10px",
-                background: "#333",
-                color: "#fff",
-              },
-            });
-          }
         });
     } catch (err) {
+      console.log(err);
     } finally {
       console.log("");
     }
