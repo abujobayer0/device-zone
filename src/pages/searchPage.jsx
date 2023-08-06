@@ -30,7 +30,7 @@ const SearchPage = () => {
   console.log(products);
   useEffect(() => {
     setIsLoading(true);
-    fetch(`http://localhost:7000/products/search?query=${query}`)
+    fetch(`https://device-zone.onrender.com/products/search?query=${query}`)
       .then((res) => res.json())
       .then((data) => {
         setProducts(data);

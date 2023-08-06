@@ -29,7 +29,8 @@ const ProductPage = () => {
   const { data: products } = useGetData("/products");
   const [isOpen, setOpen] = useState(false);
   const [config, setConfig] = useState(configs[0]);
-
+  const [isFilteredProduct, setIsFilteredProduct] = useState(false);
+  const [afterFilterProduct, setAfterFilterProduct] = useState([]);
   const handlePriceChange = (event) => {
     const { name, value } = event.target;
     if (name === "minPrice") {
@@ -46,7 +47,7 @@ const ProductPage = () => {
     setOpen(true);
   };
   const [scrollTop, setScrollTop] = useState(0);
-  console.log(scrollTop);
+
   const handleScroll = () => {
     const currentScrollTop =
       window.pageYOffset || document.documentElement.scrollTop;
@@ -60,29 +61,30 @@ const ProductPage = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-  const handleFilter = () => {
+  const handleFilter = async () => {
+    const filter = {
+      category,
+      color,
+      sort,
+      minPrice,
+      maxPrice,
+      type,
+    };
     try {
-      fetch(
-        `http://localhost:7000/products/filter?category=${category}&&color=${color}&&sort=${sort}&&minPrice=${minPrice}&&maxPrice=${maxPrice}&&type=${type}`
-      )
-        .then((res) => res.json())
-        .then((data) => {
-          console.log("filter btn clicked", {
-            category,
-            color,
-            sort,
-            minPrice,
-            maxPrice,
-            type,
-          });
-          console.log(data);
-        });
+      const queryString = new URLSearchParams(filter).toString();
+      const url = `http://localhost:7000/products/filter?${queryString}`;
+      const response = await fetch(url);
+      const data = await response.json();
+      console.log(data);
+      setAfterFilterProduct(data);
+      setIsFilteredProduct(true);
     } catch (err) {
       console.log(err);
     } finally {
       console.log("Success");
     }
   };
+  const filteredProducts = !isFilteredProduct ? products : afterFilterProduct;
   return (
     <div className="w-full relative mx-auto text-black p-4">
       <div className="grid md:grid-cols-4 lg:grid-cols-4 gap-4">
@@ -114,7 +116,7 @@ const ProductPage = () => {
         />
 
         <div className="col-span-3 w-full grid justify-items-center items-center justify-center grid-cols-2  lg:grid-cols-3 gap-4">
-          {products?.map((p, index) => (
+          {filteredProducts?.map((p, index) => (
             <ProductCard product={p} key={index} />
           ))}
         </div>

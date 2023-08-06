@@ -54,7 +54,7 @@ const Authentication = () => {
           const user = userCredential.user;
           console.log(user);
           try {
-            fetch("http://localhost:7000/user/create", {
+            fetch("https://device-zone.onrender.com/user/create", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
@@ -106,7 +106,7 @@ const Authentication = () => {
           console.log(user);
 
           axios
-            .post("http://localhost:7000/user/create", {
+            .post("https://device-zone.onrender.com/user/create", {
               email: user.email,
               address,
               zipCode,
@@ -144,7 +144,7 @@ const Authentication = () => {
         navigate(from);
 
         axios
-          .post("http://localhost:7000/user/create", {
+          .post("https://device-zone.onrender.com/user/create", {
             email: user.email,
             userName: user.displayName,
             zipCode: null,

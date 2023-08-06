@@ -43,9 +43,8 @@ const ProductCard = ({ product }) => {
       return;
     }
 
-    console.log(product, user);
     try {
-      await fetch("http://localhost:7000/add/cart", {
+      await fetch("https://device-zone.onrender.com/add/cart", {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -56,7 +55,7 @@ const ProductCard = ({ product }) => {
         .then((data) => {
           Dispatch(CartAddedSignal(1));
           console.log(data);
-          if (data.message === "Product Already Added To Cart") {
+          if (data.message) {
             toast.error("Product Already in cart! ");
           } else {
             toast("Product added to cart!", {

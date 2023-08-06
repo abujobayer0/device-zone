@@ -16,10 +16,9 @@ const WishlistComp = () => {
   const { data: cartItems, refetch } = useGetData(
     `/cart/wishlist?${queryParams} `
   );
-  console.log(cartItems && cartItems);
 
   const [scrollTop, setScrollTop] = useState(0);
-  console.log(scrollTop);
+
   const handleScroll = () => {
     const currentScrollTop =
       window.pageYOffset || document.documentElement.scrollTop;
@@ -38,7 +37,9 @@ const WishlistComp = () => {
       <div className="container mt-5 text-[#1f1e1f] w-full mx-auto px-4">
         <div className="flex w-full flex-col md:flex-row gap-4">
           <div className="md:col-span-2 w-full  flex-1">
-            <h1 className="text-3xl font-bold mb-4">WishList Products</h1>
+            <h1 className="text-3xl font-bold pl-4 md:pl-0 mb-4">
+              WishList Products
+            </h1>
             <div
               className={`grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3  `}
             >

@@ -24,7 +24,7 @@ const CategoryProductsPage = () => {
     };
   }, []);
   const { data: products, isLoading } = useGetData(
-    `http://localhost:7000/products/type?type=${query}`
+    `https://device-zone.onrender.com/products/type?type=${query}`
   );
 
   return (

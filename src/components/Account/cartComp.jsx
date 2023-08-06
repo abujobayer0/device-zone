@@ -1,31 +1,36 @@
 import CartSidebar from "./cartSideBar";
 import { useGetData } from "../../hooks/useFetch";
 import { ImCross } from "react-icons/im";
-import { AiOutlineShoppingCart } from "react-icons/ai";
+import { AiFillEye, AiOutlineShoppingCart } from "react-icons/ai";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { getAuth } from "firebase/auth";
 import app from "../../utils/firebase.init";
 import { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
+import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { ProductDetails } from "../../global/redux/productAction";
 const auth = getAuth(app);
 const CartComp = () => {
   const [user] = useAuthState(auth);
   const { data: cartItems, refetch } = useGetData(
     `/cart?email=${user?.email} `
   );
-  console.log(cartItems && cartItems);
+
   const handleRemoveFromCart = async (e) => {
-    console.log(e);
     try {
       await fetch(
-        `http://localhost:7000/cart/product/delete?id=${e}&&email=${user?.email}`,
+        `https://device-zone.onrender.com/cart/product/delete?id=${e}&&email=${user?.email}`,
         {
           method: "DELETE",
         }
       )
         .then((res) => res.json())
         .then((data) => {
-          refetch();
-          console.log(data);
+          if (data.deletedCount > 0) {
+            toast.error("Product removed from cart! ");
+            refetch();
+          }
         });
     } catch (err) {
       console.log(err);
@@ -34,7 +39,7 @@ const CartComp = () => {
     }
   };
   const [scrollTop, setScrollTop] = useState(0);
-  console.log(scrollTop);
+
   const handleScroll = () => {
     const currentScrollTop =
       window.pageYOffset || document.documentElement.scrollTop;
@@ -48,12 +53,18 @@ const CartComp = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+  const Dispatch = useDispatch();
+  const handleViewDetails = (item) => {
+    Dispatch(ProductDetails(item));
+  };
   return (
     <>
       <div className="container mt-5 text-[#1f1e1f] w-full mx-auto px-4">
         <div className="flex w-full flex-col md:flex-row gap-4">
           <div className="md:col-span-2 w-full  flex-1">
-            <h1 className="text-3xl font-bold mb-4">Shopping Cart</h1>
+            <h1 className="text-3xl font-bold pl-4 md:pl-0 mb-4">
+              Shopping Cart
+            </h1>
             {cartItems?.map((item) => (
               <div
                 key={item.id}
@@ -78,6 +89,14 @@ const CartComp = () => {
                   <button className="text-white bg-[#1f1e1f] p-4 rounded-full md:mr-5 font-semibold">
                     <AiOutlineShoppingCart />
                   </button>
+                  <Link to={`/product/details/${item?._id}`}>
+                    <button
+                      onClick={() => handleViewDetails(item)}
+                      className="text-[#1f1e1f] bg-gray-100 p-4 rounded-full md:mr-5 font-semibold"
+                    >
+                      <AiFillEye />
+                    </button>
+                  </Link>
                   <button
                     onClick={() => handleRemoveFromCart(item._id)}
                     className="text-red-500 bg-gray-100 p-4 rounded-full md:mr-5 font-semibold"

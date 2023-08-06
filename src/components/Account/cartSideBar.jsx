@@ -18,7 +18,7 @@ const CartSidebar = ({ cartItems, title, topPosition }) => {
     >
       <div
         className={` md:relative md:right-0 lg:px-6 lg:right-4 lg:fixed lg:w-1/4 lg:${
-          topPosition > 71 ? " top-4  right-6 px-2" : "relative"
+          topPosition > 100 ? " top-4  right-6 px-2" : "relative"
         } w-full`}
       >
         <h2 className="text-xl font-bold mb-4">{title}</h2>

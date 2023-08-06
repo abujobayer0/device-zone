@@ -24,7 +24,7 @@ const SideBarFilter = ({
     >
       <div
         className={`${
-          topPosition > 71
+          topPosition > 100
             ? "fixed w-1/6 transform transition-all ease-in-out duration-700 left-[28px] top-0"
             : "relative"
         }`}

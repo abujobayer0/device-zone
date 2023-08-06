@@ -4,7 +4,7 @@ import Navbar from "../components/navbar/Navbar";
 
 const Account = ({ children }) => {
   const [scrollTop, setScrollTop] = useState(0);
-  console.log(scrollTop);
+
   const handleScroll = () => {
     const currentScrollTop =
       window.pageYOffset || document.documentElement.scrollTop;

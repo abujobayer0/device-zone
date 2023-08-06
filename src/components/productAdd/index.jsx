@@ -65,14 +65,14 @@ const ProductAddPage = () => {
       type,
     });
     axios
-      .post("http://localhost:7000/create/product", {
+      .post("https://device-zone.onrender.com/create/product", {
         productName,
         description,
-        price,
-        discountPercent,
+        price: parseInt(price),
+        discountPercent: parseInt(discountPercent),
         colorVariation,
         selectedImages,
-        discountedPrice,
+        discountedPrice: parseInt(discountedPrice),
         categories,
         seller: data,
         type,

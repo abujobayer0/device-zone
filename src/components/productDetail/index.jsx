@@ -78,12 +78,12 @@ const ProductDetails = () => {
   const { data: reviews, refetch } = useGetData(
     `/review?email=${user?.email}&&productId=${Product?._id}&&sellerEmail=${Product?.seller.email}&&sellerId=${Product?.seller._id} `
   );
-  console.log(reviews);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.target;
     try {
-      fetch(`http://localhost:7000/review`, {
+      fetch(`https://device-zone.onrender.com/review`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -108,28 +108,21 @@ const ProductDetails = () => {
       console.log("success");
     }
   };
-  const handleAddToCart = (productId) => {
+  const handleAddToCart = async (productId) => {
     try {
-      fetch("http://localhost:7000/add/cart", {
+      await fetch("https://device-zone.onrender.com/add/cart", {
         method: "POST",
         headers: {
           "Content-type": "application/json",
-          body: JSON.stringify({ productId: productId, email: user?.email }),
         },
+        body: JSON.stringify({ email: user.email, productId: productId }),
       })
         .then((res) => res.json())
         .then((data) => {
-          if (data.message === "Product Already Added To Cart") {
+          if (data.message) {
             toast.error("Product Already in cart! ");
           } else {
-            toast("Product added to cart!", {
-              icon: "👏",
-              style: {
-                borderRadius: "10px",
-                background: "#333",
-                color: "#fff",
-              },
-            });
+            toast.success("Product added to cart!");
           }
         });
     } catch (err) {

@@ -117,13 +117,12 @@ const Navbar = () => {
   const [user] = useAuthState(auth);
   const { data } = useUser();
   const [toggle, setToggleNav] = useState(false);
-  console.log(data);
+
   const Dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
   const from = location.state?.from?.pathname || "/";
   const handleSearch = (e) => {
-    console.log(e.target.value);
     const query = e.target.value;
     if (query === "") {
       console.log("no data for search");
@@ -134,7 +133,7 @@ const Navbar = () => {
     }
   };
   const [scrollTop, setScrollTop] = useState(0);
-  console.log(scrollTop);
+
   const handleScroll = () => {
     const currentScrollTop =
       window.pageYOffset || document.documentElement.scrollTop;

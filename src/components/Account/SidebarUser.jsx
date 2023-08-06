@@ -25,43 +25,35 @@ const SidebarUser = ({ topPosition }) => {
   }, []);
   return (
     <div className="relative w-1/6 lg:w-1/3 min-h-screen">
-      <div
-        className={`${
-          topPosition > 71 ? "fixed top-0 w-1/4 left-0 px-2" : "relative"
-        } md:relative  lg:fixed lg:${
-          topPosition > 71 ? " top-0 w-1/4 left-0 px-2" : "relative"
-        }`}
-      >
-        <Sidebar collapsed={!toggle}>
-          <Menu rootStyles={{ color: "#1f1e1f" }}>
-            <MenuItem
-              icon={<AiOutlineShoppingCart />}
-              component={<Link to="/account" />}
-            >
-              Cart
-            </MenuItem>
-            <MenuItem
-              icon={<AiFillHeart />}
-              component={<Link to="/account/wishlist" />}
-            >
-              Wishlist
-            </MenuItem>
-            <MenuItem
-              icon={<AiFillMessage />}
-              component={<Link to="/account/chat" />}
-            >
-              Chat
-            </MenuItem>
+      <Sidebar collapsed={!toggle}>
+        <Menu rootStyles={{ color: "#1f1e1f", background: "#fff" }}>
+          <MenuItem
+            icon={<AiOutlineShoppingCart />}
+            component={<Link to="/account" />}
+          >
+            Cart
+          </MenuItem>
+          <MenuItem
+            icon={<AiFillHeart />}
+            component={<Link to="/account/wishlist" />}
+          >
+            Wishlist
+          </MenuItem>
+          <MenuItem
+            icon={<AiFillMessage />}
+            component={<Link to="/account/chat" />}
+          >
+            Chat
+          </MenuItem>
 
-            <MenuItem
-              component={<Link to="/account/Settings" />}
-              icon={<AiFillSetting />}
-            >
-              Settings
-            </MenuItem>
-          </Menu>
-        </Sidebar>
-      </div>
+          <MenuItem
+            component={<Link to="/account/Settings" />}
+            icon={<AiFillSetting />}
+          >
+            Settings
+          </MenuItem>
+        </Menu>
+      </Sidebar>
     </div>
   );
 };

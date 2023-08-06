@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import axiosInstance from "./axiosInstance";
 export const useUser = () => {
   const [user] = useAuthState(auth);
-  const url = `http://localhost:7000/user?email=${user?.email}`;
+  const url = `https://device-zone.onrender.com/user?email=${user?.email}`;
   const query = useQuery({
     queryKey: [url],
     queryFn: () => axiosInstance.get(url).then((response) => response.data),
