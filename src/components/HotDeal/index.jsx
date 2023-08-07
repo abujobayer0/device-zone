@@ -13,7 +13,7 @@ import { useGetData } from "../../hooks/useFetch";
 import { Link } from "react-router-dom";
 
 const HotDeals = () => {
-  const { data, loading } = useGetData("/products/hotdeal");
+  const { data, loading } = useGetData("/hotdeal");
   const products = !loading && data;
 
   return (

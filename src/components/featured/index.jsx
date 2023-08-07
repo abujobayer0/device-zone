@@ -11,11 +11,17 @@ import { Navigation, Pagination } from "swiper/modules";
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 import { useGetData } from "../../hooks/useFetch";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
 const FeaturedProducts = () => {
-  const { data, loading } = useGetData("/products/featured");
+  const { data, loading } = useGetData("/featured");
   const products = !loading && data;
-
+  useEffect(() => {
+    fetch("https://device-zone.onrender.com/featured")
+      .then((res) => res.json())
+      .then((data) => console.log("test", data));
+  }, []);
+  console.log(data);
   return (
     <div className="mt-10 px-5 w-full">
       <Link to={"/all/products"}>

@@ -7,16 +7,19 @@ import { getAuth } from "firebase/auth";
 import app from "../../utils/firebase.init";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { ProductDetails } from "../../global/redux/productAction";
+import {
+  PaymentProduct,
+  ProductDetails,
+} from "../../global/redux/productAction";
 const auth = getAuth(app);
 const CartComp = () => {
   const [user] = useAuthState(auth);
   const { data: cartItems, refetch } = useGetData(
     `/cart?email=${user?.email} `
   );
-
+  console.log(cartItems, user?.email);
   const handleRemoveFromCart = async (e) => {
     try {
       await fetch(
@@ -54,8 +57,18 @@ const CartComp = () => {
     };
   }, []);
   const Dispatch = useDispatch();
+  const navigate = useNavigate();
   const handleViewDetails = (item) => {
     Dispatch(ProductDetails(item));
+  };
+  const handlePayment = (product) => {
+    try {
+      Dispatch(PaymentProduct(product));
+    } catch (err) {
+      console.log(err);
+    } finally {
+      navigate(`/account/payment/${product._id}`);
+    }
   };
   return (
     <>
@@ -86,9 +99,6 @@ const CartComp = () => {
                   </p>
                 </div>
                 <div className="flex gap-2 flex-col md:flex-row">
-                  <button className="text-white bg-[#1f1e1f] p-4 rounded-full md:mr-5 font-semibold">
-                    <AiOutlineShoppingCart />
-                  </button>
                   <Link to={`/product/details/${item?._id}`}>
                     <button
                       onClick={() => handleViewDetails(item)}

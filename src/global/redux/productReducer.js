@@ -26,6 +26,11 @@ const productReducer = (state = initialState, action) => {
         ...state,
         cartAddSignal: action.payload,
       };
+    case "PAYMENT_PRODUCT":
+      return {
+        ...state,
+        paymentProduct: action.payload,
+      };
     default:
       return state;
   }

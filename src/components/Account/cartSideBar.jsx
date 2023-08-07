@@ -46,10 +46,62 @@ const CartSidebar = ({ cartItems, title, topPosition }) => {
           <div className="flex items-center justify-between">
             <p className="text-xl font-semibold">Final Price:</p>
             <p className="text-xl font-semibold">${parseInt(finalPrice)}</p>
-          </div>
-          <button className="w-full mt-4 bg-[#1f1e1f] text-white py-3 rounded">
-            Buy Now
-          </button>
+          </div>{" "}
+          <form className="space-y-4 mt-4">
+            <div className="flex flex-col">
+              <label
+                htmlFor="cardNumber"
+                className="text-sm font-medium text-gray-700"
+              >
+                Card Number
+              </label>
+              <input
+                type="text"
+                id="cardNumber"
+                name="cardNumber"
+                className="py-2 px-4 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                placeholder="Enter card number"
+              />
+            </div>
+            <div className="grid grid-cols-3 gap-4">
+              <div className="flex flex-col">
+                <label
+                  htmlFor="expiry"
+                  className="text-sm font-medium text-gray-700"
+                >
+                  Expiry Date
+                </label>
+                <input
+                  type="text"
+                  id="expiry"
+                  name="expiry"
+                  className="py-2 px-4 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  placeholder="MM/YY"
+                />
+              </div>
+              <div className="flex flex-col">
+                <label
+                  htmlFor="cvv"
+                  className="text-sm font-medium text-gray-700"
+                >
+                  CVV
+                </label>
+                <input
+                  type="text"
+                  id="cvv"
+                  name="cvv"
+                  className="py-2 px-4 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  placeholder="CVV"
+                />
+              </div>
+            </div>
+            <button
+              type="submit"
+              className="bg-[#1f1e1f] text-white py-2 px-4 rounded-lg w-full mt-6"
+            >
+              Pay Now
+            </button>
+          </form>
         </div>
       </div>
     </div>

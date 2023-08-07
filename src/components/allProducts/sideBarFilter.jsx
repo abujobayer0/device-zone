@@ -99,11 +99,14 @@ const SideBarFilter = ({
           >
             <option value="">Select</option>
 
-            {colors?.map((color, index) => (
-              <option key={index} value={color}>
-                {color}
-              </option>
-            ))}
+            <option value="silver">silver</option>
+            <option value="gold">gold</option>
+            <option value="black">black</option>
+            <option value="white">white</option>
+            <option value="purple">purple</option>
+            <option value="green">green</option>
+            <option value="red">red</option>
+            <option value="blue">blue</option>
           </select>
         </div>
 

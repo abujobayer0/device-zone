@@ -15,3 +15,7 @@ export const CartAddedSignal = (cartAddSignal) => ({
   type: "CART_ADDED_SIGNAL",
   payload: cartAddSignal,
 });
+export const PaymentProduct = (paymentProduct) => ({
+  type: "CART_ADDED_SIGNAL",
+  payload: paymentProduct,
+});

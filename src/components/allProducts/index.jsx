@@ -25,7 +25,7 @@ const ProductPage = () => {
   const colors = ["Red", "Blue", "Green", "Black", "White"];
   const types = ["smart_watch", "Tablet", "Phone", "Laptop"];
   const [minPrice, setMinPrice] = useState(0);
-  const [maxPrice, setMaxPrice] = useState(2000);
+  const [maxPrice, setMaxPrice] = useState(5000);
   const { data: products } = useGetData("/products");
   const [isOpen, setOpen] = useState(false);
   const [config, setConfig] = useState(configs[0]);
@@ -62,6 +62,8 @@ const ProductPage = () => {
     };
   }, []);
   const handleFilter = async () => {
+    setOpen(false);
+
     const filter = {
       category,
       color,
@@ -72,7 +74,7 @@ const ProductPage = () => {
     };
     try {
       const queryString = new URLSearchParams(filter).toString();
-      const url = `https://device-zone.onrender.com/products/filter?${queryString}`;
+      const url = `https://device-zone.onrender.com/filter?${queryString}`;
       const response = await fetch(url);
       const data = await response.json();
       console.log(data);
@@ -224,12 +226,14 @@ const ProductPage = () => {
                     className="w-full p-2 border rounded"
                   >
                     <option value="">Select</option>
-
-                    {colors?.map((color, index) => (
-                      <option key={index} value={color}>
-                        {color}
-                      </option>
-                    ))}
+                    <option value="silver">silver</option>
+                    <option value="gold">gold</option>
+                    <option value="black">black</option>
+                    <option value="white">white</option>
+                    <option value="purple">purple</option>
+                    <option value="green">green</option>
+                    <option value="red">red</option>
+                    <option value="blue">blue</option>
                   </select>
                 </div>
               </div>
