@@ -115,7 +115,7 @@ const ProductDetails = () => {
         headers: {
           "Content-type": "application/json",
         },
-        body: JSON.stringify({ email: user.email, productId: productId }),
+        body: JSON.stringify({ email: user?.email, productId: productId }),
       })
         .then((res) => res.json())
         .then((data) => {
@@ -150,7 +150,7 @@ const ProductDetails = () => {
               modules={[Pagination, Navigation]}
               className="rounded-lg swiper overflow-hidden"
             >
-              {Product.selectedImages?.map((image, index) => (
+              {Product?.selectedImages?.map((image, index) => (
                 <SwiperSlide key={index}>
                   <div className="w-96 h-96 mx-auto">
                     <img

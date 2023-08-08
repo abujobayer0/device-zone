@@ -1,25 +1,20 @@
 import CartSidebar from "./cartSideBar";
 import { useGetData } from "../../hooks/useFetch";
 import { ImCross } from "react-icons/im";
-import { AiFillEye, AiOutlineShoppingCart } from "react-icons/ai";
+import { AiFillEye } from "react-icons/ai";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { getAuth } from "firebase/auth";
 import app from "../../utils/firebase.init";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import {
-  PaymentProduct,
-  ProductDetails,
-} from "../../global/redux/productAction";
+import { ProductDetails } from "../../global/redux/productAction";
 const auth = getAuth(app);
 const CartComp = () => {
   const [user] = useAuthState(auth);
-  const { data: cartItems, refetch } = useGetData(
-    `/cart?email=${user?.email} `
-  );
-  console.log(cartItems, user?.email);
+  const { data, refetch } = useGetData(`/cart?email=${user?.email} `);
+  const cartItems = data && data;
   const handleRemoveFromCart = async (e) => {
     try {
       await fetch(
@@ -57,19 +52,11 @@ const CartComp = () => {
     };
   }, []);
   const Dispatch = useDispatch();
-  const navigate = useNavigate();
+
   const handleViewDetails = (item) => {
     Dispatch(ProductDetails(item));
   };
-  const handlePayment = (product) => {
-    try {
-      Dispatch(PaymentProduct(product));
-    } catch (err) {
-      console.log(err);
-    } finally {
-      navigate(`/account/payment/${product._id}`);
-    }
-  };
+
   return (
     <>
       <div className="container mt-5 text-[#1f1e1f] w-full mx-auto px-4">
@@ -80,11 +67,11 @@ const CartComp = () => {
             </h1>
             {cartItems?.map((item) => (
               <div
-                key={item.id}
+                key={item._id}
                 className="flex items-center justify-between border-b gap-10 py-4"
               >
                 <img
-                  src={item.selectedImages[0].image}
+                  src={item?.selectedImages[0]?.image}
                   className="w-20"
                   alt=""
                 />
@@ -99,14 +86,6 @@ const CartComp = () => {
                   </p>
                 </div>
                 <div className="flex gap-2 flex-col md:flex-row">
-                  <Link to={`/product/details/${item?._id}`}>
-                    <button
-                      onClick={() => handleViewDetails(item)}
-                      className="text-[#1f1e1f] bg-gray-100 p-4 rounded-full md:mr-5 font-semibold"
-                    >
-                      <AiFillEye />
-                    </button>
-                  </Link>
                   <button
                     onClick={() => handleRemoveFromCart(item._id)}
                     className="text-red-500 bg-gray-100 p-4 rounded-full md:mr-5 font-semibold"
@@ -118,6 +97,7 @@ const CartComp = () => {
             ))}
           </div>
           <CartSidebar
+            user={user}
             title={"Cart summery"}
             topPosition={scrollTop}
             cartItems={cartItems}

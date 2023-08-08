@@ -4,6 +4,7 @@ import {
   AiFillFileAdd,
   AiFillSetting,
   AiOutlineMessage,
+  AiOutlineOrderedList,
   AiOutlineShopping,
 } from "react-icons/ai";
 
@@ -51,6 +52,12 @@ const SidebarSeller = () => {
             icon={<AiFillFileAdd />}
           >
             Add Product
+          </MenuItem>
+          <MenuItem
+            component={<Link to="/dashboard/manage/orders" />}
+            icon={<AiOutlineOrderedList />}
+          >
+            Manage Orders
           </MenuItem>
           <MenuItem
             component={<Link to="/dashboard/chat" />}

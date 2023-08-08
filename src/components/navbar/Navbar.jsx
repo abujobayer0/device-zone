@@ -237,12 +237,12 @@ const Navbar = () => {
         cartItems={cartItems}
         setOpen={setToggleNav}
       />
-      <div className="w-full">
+      <div className="w-full bg-[#1f1e1f] px-5 py-1 border-b border-gray-500 md:hidden ">
         <input
           type="text"
-          className="w-full cursor-pointer bg-[#1f1e1f] border-b border-gray-500  shadow-lg p-4 text-white md:hidden"
+          className="w-full cursor-pointer bg-[#3b3b3b] rounded-full  shadow-lg py-3 px-6 text-white "
           onChange={handleSearch}
-          placeholder="Search Products e.g. Phone ,Tablet , Laptop , Smart Watch"
+          placeholder="Search Products e.g. Phone ,Tablet "
         />
       </div>
     </>

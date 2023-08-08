@@ -1,4 +1,3 @@
-// productReducer.js
 const initialState = {
   selectedProduct: null,
   selectedProductForDetail: null,

@@ -3,6 +3,7 @@ import {
   AiFillHeart,
   AiFillMessage,
   AiFillSetting,
+  AiOutlineDeliveredProcedure,
   AiOutlineShoppingCart,
 } from "react-icons/ai";
 
@@ -38,6 +39,12 @@ const SidebarUser = ({ topPosition }) => {
             component={<Link to="/account/wishlist" />}
           >
             Wishlist
+          </MenuItem>
+          <MenuItem
+            icon={<AiOutlineDeliveredProcedure />}
+            component={<Link to="/account/track" />}
+          >
+            Track Order
           </MenuItem>
           <MenuItem
             icon={<AiFillMessage />}

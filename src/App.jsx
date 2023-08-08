@@ -23,6 +23,8 @@ import AllProductPage from "./pages/AllProductPage";
 import CategoryProductsPage from "./pages/categoryProductPage";
 import WishlistComp from "./components/Account/wishList";
 import { Toaster } from "react-hot-toast";
+import Order from "./components/Account/order";
+import SellerManageOrder from "./components/sellerDashboard/sellerManageOrder";
 
 function App() {
   return (
@@ -48,6 +50,16 @@ function App() {
             <PrivateRoute>
               <Account>
                 <WishlistComp />
+              </Account>
+            </PrivateRoute>
+          }
+        ></Route>
+        <Route
+          path="/account/track"
+          element={
+            <PrivateRoute>
+              <Account>
+                <Order />
               </Account>
             </PrivateRoute>
           }
@@ -101,6 +113,16 @@ function App() {
             <PrivateRoute>
               <SearchPage />
             </PrivateRoute>
+          }
+        ></Route>
+        <Route
+          path="/dashboard/manage/orders"
+          element={
+            <SellerDashboardPrivateRoute>
+              <Dashboard>
+                <SellerManageOrder />
+              </Dashboard>
+            </SellerDashboardPrivateRoute>
           }
         ></Route>
         <Route

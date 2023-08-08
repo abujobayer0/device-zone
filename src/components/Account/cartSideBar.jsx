@@ -1,5 +1,11 @@
+import { getAuth } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
+import app from "../../utils/firebase.init";
+const auth = getAuth(app);
 const CartSidebar = ({ cartItems, title, topPosition }) => {
+  const [user] = useAuthState(auth);
   const totalProducts = cartItems?.length;
+
   const totalDiscountedPrice = cartItems?.reduce(
     (total, item) => total + parseInt(item.discountedPrice),
     0
@@ -11,7 +17,20 @@ const CartSidebar = ({ cartItems, title, topPosition }) => {
   const platformFee = 5;
   const finalPrice = totalDiscountedPrice + platformFee;
   const totalDiscountedPercent = totalPrice - totalDiscountedPrice;
-
+  const handlePrrchase = async () => {
+    console.log(cartItems);
+    await fetch(
+      `https://device-zone.onrender.com/order/product?email=${user?.email}`,
+      {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify({ products: cartItems }),
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+  };
+  console.log(user);
   return (
     <div
       className={`md:col-span-1 w-full mb-4 md:min-h-screen  md:w-1/3 p-4  bg-gray-100 rounded-lg `}
@@ -47,7 +66,7 @@ const CartSidebar = ({ cartItems, title, topPosition }) => {
             <p className="text-xl font-semibold">Final Price:</p>
             <p className="text-xl font-semibold">${parseInt(finalPrice)}</p>
           </div>{" "}
-          <form className="space-y-4 mt-4">
+          <form onSubmit={(e) => e.preventDefault()} className="space-y-4 mt-4">
             <div className="flex flex-col">
               <label
                 htmlFor="cardNumber"
@@ -97,6 +116,7 @@ const CartSidebar = ({ cartItems, title, topPosition }) => {
             </div>
             <button
               type="submit"
+              onClick={handlePrrchase}
               className="bg-[#1f1e1f] text-white py-2 px-4 rounded-lg w-full mt-6"
             >
               Pay Now
